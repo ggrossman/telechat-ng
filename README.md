@@ -48,7 +48,7 @@ and actually got the software to be stable production code, which
 it probably wasn't when I gave it to him.
 
 Even though we were both at Cal at the same time, I never met Brian in
-person or even traded more than few e-mails with him. He, of course,
+person or even traded more than a few e-mails with him. He, of course,
 went on to be one of the founders of the Apache Server and a leading
 figure in the open source movement.
 
