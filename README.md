@@ -152,3 +152,4 @@ laid off from US CAD in 1989 and Morrison Hotel was shut down. We did
 not have the motivation to start it back up again.
 
 "That is the story of Morrison Hotel." - Eric Pederson
+(https://www.linkedin.com/in/ericacm)
