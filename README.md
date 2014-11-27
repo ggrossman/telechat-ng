@@ -39,7 +39,7 @@ One of them was named Brian Behlendorf, nickname Vitamin B. He
 expressed interest in the chat server and asked if he could have the
 code. I gladly gave it to him.  He was a leader in the San Francisco
 rave scene centered at the 1015 Folsom club and set up a "virtual
-rave" server using my chat server.  "VRave" would often be set up at
+rave" server using my chat server.  "Vrave" would often be set up at
 raves as a desktop computer and you could communicate with ravers at
 OTHER raves. They added features to the server like the string "BOOM
 BOOM BOOM BOOM" being printed occasionally to give a techno feel.
@@ -70,7 +70,7 @@ marriages were conducted over it. And unfortunately, it sounds like
 there was some serious misbehavior by some bad actors that led to
 its demise.
 
-I forget what year this happened, but Eric Pedersen, the real original
+I forget what year this happened, but Eric Pederson, the real original
 author of the first Unix/CB software, actually logged into Vrave at
 some point and was floored that the UI was more or less identical to
 something he had written 10+ years earlier. Somehow we reconnected
@@ -86,3 +86,69 @@ through many hands since I touched it... but a lot of it is still
 recognizably the crap I wrote in high school.
 
 -Gary Grossman, 11/26/14
+
+Some history of MoHo from http://bbslist.textfiles.com/714/oldschool.html:
+
+"Morrison Hotel (MoHo) was started in 1986 as a way to learn Unix and
+meet girls. It was a 10-line multi-user BBS offering Chat, Message
+Boards, Email, Games, File Transfers, Voting, and much more.  "The
+sysops were Mike Cantu and myself, both 19 year old (in 1986) college
+students going to California State University Long Beach.
+
+"Mike and I spent a number of years as interns administering a IBM
+mainframe system used by students in our high school district. On that
+system we wrote some of the predecessors of MoHo features (in
+Fortran!). We also spent a lot of time online during high school on
+different BBSes around the country and in Orange County.
+
+"The software for the MoHo was developed from scratch by us in C,
+running Unix System V/3 on a Convergent Technologies miniframe (first)
+and then SCO Unix on a 386 tower. We had ten 2400 baud US Robotics
+Sportsters.
+
+"The users of the board were primarily college kids and teenagers. It
+was a prime place to meet the opposite sex via Chat :) The users got
+together for parties all the time.
+
+"Because 10 phone lines weren't cheap (neither was the $10,000
+Convergent Miniframe), we charged a $10/month flat rate subscription
+(we also had a "credits" plan where you were charged for online
+usage). Access to the message boards and email were free, as was
+limited access to chat. We strongly believed that the basic features
+of our bulletin board should always be free.
+
+"The chat system we developed was heavily influenced by
+Diversidial. Lots of cool and unique features (like Jive mode, if you
+remember the old Unix jive filter). A clone of the MoHo chat system
+(same UI, different code base) was used by Vrave based at
+hyperreal.org
+
+"The message boards we developed were very heavily influenced by
+PicoSpan (the original software that the Well ran). Featuring threaded
+topics, etc.
+
+"The email system and the menuing system we developed were heavily
+influenced by Forum-PC (probably the best DOS PC BBS software there
+was, followed by WWIV)
+
+"Among the many games (there were lots of freeware games for Unix) was
+a game we wrote called TAC - Tactical Armored Command. This was a
+real-time, multiuser tank battle game. People spent hours and hours
+playing that game!
+
+"File transfers used gz, a freeware Unix file transfer program that
+supported x/y/zmodem.
+
+"We did not advertise because the phone lines were always busy (tho we
+had a 30 minute timeout after which you were hung up on to let someone
+else get a chance to get in). We had numerous phone numbers, so that
+MoHo would be local dialing to the widest area.
+
+"A company called US CAD hired us, and adopted Morrison Hotel to try
+to turn it into a profitable business (both from subscriptions and
+from developing the software to sell to other sysops). The business
+never panned out though, for a number of reasons. We were eventually
+laid off from US CAD in 1989 and Morrison Hotel was shut down. We did
+not have the motivation to start it back up again.
+
+"That is the story of Morrison Hotel." - Eric Pederson
