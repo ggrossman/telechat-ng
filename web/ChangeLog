@@ -1,0 +1,60 @@
+2000-05-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* Telechat.pm: Small code cleanup.
+
+2000-05-01  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* list-channels.pl:
+	The script has been simplified: now it prints all information about
+	users available (i.e. all keys of hashes associated with users, not
+	only particular ones).
+
+	* is-online.pl:
+	Showing information about user's idle time and "typing" indication.
+
+	* Telechat.pm:
+	Parsing information about user's idle time and "typing" indication.
+
+2000-04-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* is-online.pl, list-channels.pl:
+	New caching functionality of Telechat.pm is explicitely disabled in
+	these example scripts.
+
+	* Telechat.pm:
+	Caching of data obtained from servers has been implemented.
+
+2000-02-22  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* Telechat.pm:
+	Login prompt pattern changed to recognize default settings in current
+	version of telechat-ng.
+
+2000-02-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* ChangeLog: Updated.
+
+2000-01-23  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* Telechat.pm:
+	Executing "quit" command in telnet session, deleting empty channel
+	name if there is no active users on unnamed channels.
+
+2000-01-22  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* is-online.pl, list-channels.pl:
+	Modified to work better with new Telechat.pm.
+
+	* Telechat.pm: Smarter data parsing.
+
+2000-01-21  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* is-online.pl, list-channels.pl, Telechat.pm:
+	New OO interface of Telechat.pm.
+
+	* list-channels.pl:
+	Initial revision. Just lists active users on channels.
+
+	* Telechat.pm:
+	Initial revision. Works fine but external interface is poor.
+

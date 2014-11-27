@@ -1,0 +1,885 @@
+2000-06-11  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* main.c:
+	Bugfix: Undoing completions with Esc did not work properly when the
+	user has walked through all variants with Tab and returned to the
+	initial state.
+
+	* WhatsNew: Updated.
+
+	* telechat.h, userinfo.c, users.c, utils.c: Version numbers changed.
+
+	* TODO: Updated.
+
+	* commands.c: Small changes in the commands annotations.
+
+	* kill_idlers.c, send_sighup.c:
+	Utilities rewritten to use kill(2) call instead of system(2) to send
+	signals to the daemon.
+
+	* level_passwd.c: Minor change in the comments.
+
+	* main.c:
+	More efficient way to determine the number of file descriptors for
+	select(2) call.
+	More comments in code documenting some of new functions.
+
+	* init.c, telechat.h:
+	More efficient way to determine the number of file descriptors for
+	select(2) call.
+
+2000-06-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+	* pmail.c (cmd_pmail_offmsg3):
+	Prevention of sending empty offline messages.
+
+	* pmail.c (offmsg_print):
+	Problem parsing offline messages related to the
+	scanf() behaviour has been fixed.
+
+	* main.c (mainloop): Logic error fixed (caused segfaults under certain
+	circumstances, particularly during execution of register.pl robot).
+
+2000-06-08  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* config.c, main.c, telechat.h:
+	Incremental username completion with Tab, Esc.
+
+2000-06-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* acct.c, admin.c, prototypes.h:
+	All functions requiring user names are now called via setproc_id().
+
+2000-06-06  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* queue.c, telechat.h:
+	Printing a warning after overflows in output queues.
+
+	* telechat.h: Queue sizes and message buffer size increased.
+
+	* io.c, telechat.h: Strange MAXNL limit removed.
+
+	* commands.c: Minor changes in command annotations.
+
+	* commands.c: /M command is used to send offline mail instead of /P.
+
+	* config.c, pmail.c, telechat.h:
+	Configurable limit for maximum size of offline mail per user.
+
+2000-06-05  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+	* commands.c, pmail.c, prototypes.h, telechat.h:
+	New command (/P) to send offline messages.
+
+	* beeps.c, io.c (writeaction):
+	Using color of the current slot, bold attribute,
+	adding newline to the end of string.
+
+	* pmail.c:
+	/p command allows entering names of offline users. It sends offline
+	messages if that person is offline, and usual personal messages if he
+	is logged in.
+
+	* pmail.c:
+	New function offmsg_alloc_path() to allocate and compose path to the
+	file with offline messages for current user.
+	Correct return values for offmsg_erase_all() function.
+
+	* pmail.c, prototypes.h:
+	Interactive erasing of offline messages after reading.
+
+	* enter.c (enter):
+	Do not show offline messages at logon, only write reminder if
+	there are such messages.
+
+	* io.c (writemsg_raw): Using only "outq" queue for writing messages.
+
+2000-06-02  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* main.c, pmail.c, prototypes.h, squelch.c, telechat.h, admin.c, beeps.c, commands.c, io.c:
+	Functionality provided by readid() and readid2() extended: these
+	functions renamed to setproc_id() and proc_id() and able to lookup for
+	offline registered users if desired by caller.
+
+	* pmail.c:
+	Dropping non-printable characters when reading offline messages.
+
+	* io.c: One more comment added.
+
+	* commands.c, enter.c, pmail.c, prototypes.h:
+	Code cleanup: names changed for functions handling offline messages.
+
+	* recent.c:
+	There was one unused entry in the recent users list, now it is used
+	too; it gives us 20 entries instead of 19 in this list by default.
+
+2000-06-01  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* enter.c, pmail.c, prototypes.h, commands.c:
+	Better reading of offline messages.
+	Erasing messages after they have been shown.
+
+	* quit.c: Cosmetic changes.
+
+	* enter.c, io.c, pmail.c, prototypes.h:
+	First draft implementation of reading offline messages.
+
+	* commands.c: Level elevation enabled for level 0 users.
+
+	* pmail.c: cmd_pmail_reply() and cmd_pmail_again() functions rewritten.
+
+	* quit.c: Extra newline printed on quit.
+
+	* gdbmmanage:
+	Printing usage help if unknown command supplied in the command line.
+
+	* config.c, db.c, init.c, kill_idlers.c, level_passwd.c, main.c, Makefile, pmail.c, prototypes.h, send_sighup.c, telechat.h:
+	BASE_DIR is now copied to variables in config.c which are used by the
+	other modules.
+	Compilation fixes for kill_idlers.c, send_sighup.c, level_passwd.c.
+
+	* pmail.c:
+	Preliminary code to send offline messages if /p addressee is gone
+	offline.
+
+	* typing.c (cmd_typing):
+	Squelching now matters for the results shown with the /e
+	command.
+
+	* enter.c (enter):
+	Bug fixed: a number of active users reported after logon
+	included people with inactivated slots (for exaple, when a person logs
+	in and his dead instance has been kicked off, the number of users
+	online includes that zombi person).
+
+	* TODO: Updated.
+
+	* commands.c (readid2):
+	Extra double quotes removed from message about nonexistent
+	slot.
+
+	* commands.c (exec_cmd):
+	Message about invalid command now goes to the same line
+	where that command was entered instead of the next line.
+
+	* enter.c (get_new_pw):
+	Bug fixed: if a password of new user could not be saved
+	in the password DB, there was no any error message and that user could
+	not do anything except scrolling the screen with Enter key.
+
+	* db.c, db.h, main.c (db_init_files):
+	New function. Creation of database files at program
+	startup if needed.
+
+	* db.c: Cosmetic change.
+
+	* enter.c (get_new_login):
+	Existance of users names is now checked via passwords
+	database instead of accounts DB.
+
+	* admin.c, init.c, main.c, telechat.h:
+	Now it's not necessary to terminate BASE_DIR with a slash.
+
+	* config.h, telechat.h: Unused #ifdef's and #define's has been removed.
+
+	* config.h: Now it's not necessary to terminate BASE_DIR with a slash.
+	Cosmetic changes in the comments layout.
+
+	* db.c: Now it's not necessary to terminate BASE_DIR with a slash.
+
+2000-05-31  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* commands.c, enter.c, main.c, pmail.c, prototypes.h, telechat.h:
+	Cleanup: slotbyname() has been split in two separate functions:
+	slotbyname() and slotbynumber().
+	Two fields in the SLOT structure definition renamed.
+
+2000-05-29  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* validate.c, beeps.c, colors.c, db.c, db.h, emote.c, level_passwd.c, logging.c, main.c, quit.c, recent.c, signals.c, squelch.c, userinfo.c, users.c:
+	Cosmetic changes.
+
+	* config.c, telechat.h, prototypes.h, commands.c:
+	Corrections to reflect changes in typing.c module.
+
+	* typing.c: Code rewritten, color support added.
+
+2000-05-21  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+2000-05-15  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+	* telechat.h: VERSION string changed.
+
+	* main.c:
+	Preventing username completion when the only character entered for
+	sendpub is a command marker, '/'.
+
+	* commands.c: Minor changes in messages for /? and /+ commands.
+
+	* commands.c, main.c:
+	A brief command annotation is shown after entering the command.
+
+	* main.c (complete_id):
+	Beeping if completion is not found or is ambiguous.
+
+	* main.c: Tiny refinement of completion code.
+
+2000-05-14  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* commands.c: New command, /l -- clear screen.
+
+	* main.c: Cosmetic changes in comments.
+
+	* acct.c, active.c, admin.c, beeps.c, broadcast.c, channels.c, colors.c, commands.c, emote.c, enter.c, io.c, main.c, pmail.c, prototypes.h, quit.c, squelch.c, telechat.h, typing.c, users.c:
+	Working support for Tab-completion of usernames (non-incremental, does
+	not display a list of choices).
+
+	* main.c, telechat.h:
+	Preliminary support for Tab-completion of usernames.
+
+2000-05-11  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* ChangeLog, TODO, WhatsNew: Updated.
+
+	* main.c, squelch.c, userinfo.c:
+	Copyright strings corrected with regards to past work by Hyperreal.
+
+	* admin.c: Bold/bright attribute for "moved to level" messages.
+
+	* io.c: Colors for operact() messages.
+
+2000-05-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* commands.c, main.c, prototypes.h:
+	Visual expansion of slot numbers to user names for readid().
+
+	* commands.c: Cosmetic change.
+
+	* .cvsignore: Updated.
+
+	* admin.c: Format of some system messages changed.
+
+	* commands.c, enter.c, main.c, prototypes.h:
+	Extra empty lines in printing welcome/prelogin/postlogin messages.
+
+	* active.c:
+	%s and %S patterns are now substituted by slot numbers instead of file
+	desctiptors.
+	Appending a space to %S value if the number of slot is one-digit.
+
+	* config.h: Default active format now includes the number of slot.
+
+	* init.c:
+	Setting of the SO_REUSEADDR flag on the listening socket restored.
+
+	* init.c:
+	Setting of the SO_REUSEADDR flag on the listening socket removed.
+
+	* TODO: Updated.
+
+	* config.c, enter.c, main.c, telechat.h:
+	Support for limiting the max number of online users and the max number
+	of open files.
+
+	* main.c: Typo in comments fixed.
+
+	* enter.c: Printing system name after successful login.
+
+	* beeps.c, broadcast.c, channels.c, emote.c, enter.c, main.c, Makefile, pmail.c, prototypes.h, squelch.c, userinfo.c:
+	Squelching functionality merged back.
+
+	* commands.c: Squelching functionality merged back.
+	Bug with setread() in readid2() fixed.
+
+	* telechat.h: Queue sizes increased to correct problem with /+ output.
+
+2000-05-08  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* admin.c: Extra comments removed.
+
+	* prototypes.h: set_channel() made static.
+
+	* channels.c: set_channel() made static, extra comments removed.
+
+	* telechat.h, main.c, config.c: New configuration option: idle_timeout.
+
+	* active.c:
+	"who" login command had used users' active list formats instead of one
+	fixed format.
+
+	* kill_idlers.c, send_sighup.c:
+	Using signal names in system("kill ...") instead of numbers.
+
+	* main.c (logout_idle): Error with clearing logout_idle_flag fixed.
+
+	* users.c, channels.c, main.c: Cosmetic changes only.
+
+	* enter.c:
+	Bug with initializing id[] field of ACCOUNT structure fixed, the users
+	with passwords but without accounts used to get empty string there.
+	Such users are now also notified about creation of new account record.
+
+	* config.h: Default channel names changed, other cosmetic changes made.
+
+	* commands.c:
+	cmd_level() command made available only for users with level >= 1.
+
+2000-05-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* io.c: Prevention of writing into inactivated slots.
+	writequeue() is not called any more from insert() to prevent blocking.
+
+	* acct.c, active.c, admin.c, channels.c, enter.c, main.c, pmail.c, typing.c, userinfo.c:
+	Many transmit() calls removed to prevent blocking.
+
+	* acct.c, active.c, admin.c, beeps.c, broadcast.c, channels.c, colors.c, commands.c, config.c, config.h, emote.c, enter.c, init.c, io.c, logging.c, main.c, Makefile, pmail.c, prototypes.h, queue.c, quit.c, recent.c, signals.c, telechat.h, typing.c, userinfo.c, users.c, utils.c:
+	Slots handling redesigned to address slots by smaller integers and to
+	prevent access to slot structures beeng already destroyed.
+	Code cleanups in many places.
+	Squelching functionality removed, has to be reimplemented from
+	scratch.
+	Many functions moved between source files.
+	Too many other changes to list.
+
+2000-05-01  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* main.c: One more comment added, nothing more.
+
+	* main.c:
+	Prevention of operations on closed SLOTs resulting segfaults in
+	ts_none() function.
+	Minor code cleanup in mainloop().
+
+	* enter.c, queue.c: Unnecessary "errno = 0;" assignments removed.
+
+	* TODO: Updated.
+
+2000-04-28  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* enter.c:
+	Bugfix: changes in account settings got lost when the user entered
+	second time with the same login name.
+
+	* TODO: Updated.
+
+	* admin.c, broadcast.c, channels.c, emote.c, enter.c, io.c, logging.c, main.c, prototypes.h, quit.c, signals.c:
+	Formats of messages and log records have been changed.
+	Emotes, broadcast emotes, moving through channel 01 are now logged.
+	Channel numbers go to the log in write_log_paabout().
+	Unused last argument of paabout() function removed.
+	Minor bugfixes and cleanups.
+
+	* admin.c, init.c, logging.c, main.c, prototypes.h, queue.c, telechat.h:
+	Debugging log files are not supported any more.
+
+	* commands.c: Cosmetic changes.
+
+2000-04-27  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+	* db.h: Cosmetic correction.
+
+	* TODO: Updated.
+
+	* commands.c, main.c:
+	Functions implementing user commands moved from main.c to commands.c.
+	Structure format for commands list changed.
+	exec_cmd() function rewritten.
+	cmd_help() and adv_help() functions rewritten from scratch.
+	Code cleanups.
+
+	* acct.c, admin.c: Validation of usernames entered by user.
+	"Purging unused accounts" and "deleting all unverified users"
+	functionality removed, to be rewritten from scratch in the future.
+	Logic of accounting functions enhanced.
+	Code cleanups.
+
+	* telechat.h: string.h included instead of strings.h.
+
+	* io.c: Minor code cleanups.
+
+	* prototypes.h:
+	exec_cmd() prototype added, cmd_level() prototype changed.
+
+	* validate.c:
+	Unused email_is_bogus() function incuded from other place.
+
+	* Makefile:
+	Removing linked.c, *.bak with "make clean" and "make clear".
+
+	* Makefile: New file commands.c, removing more files with "make clear".
+
+	* TODO: Updated.
+
+	* telechat.h, main.c:
+	Format of CMD structure for storing commands' specifications has been
+	changed. Functions cmd_help, adv_help have been rewritten completely.
+
+2000-04-26  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* io.c: Information about "recent" command before login prompt.
+
+	* recent.c: Cosmetic change in text message.
+
+	* enter.c:
+	Dumping list of recent users with "r" or "recent" login command.
+
+	* config.c: "recent" is now illegal login name.
+
+	* enter.c: Active list format for "who" command changed.
+
+	* config.h: Default active list format (DEF_ACT_FMT) changed.
+
+	* active.c:
+	Idle time is reporting in hours and minutes instead of min:sec.
+	Idle time less than 1 minute is not reported any more.
+
+	* TODO: Updated.
+
+2000-04-21  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* main.c (dump_userinfoshort):
+	Some unused variables and extra initialization
+	code removed.
+
+	* enter.c: One text message changed.
+
+	* active.c: Showing idle time with %t field in lists of online users.
+
+2000-04-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* config.c: slots_f is now 0 by default.
+	New bad_logins array to list disabled logins.
+
+	* enter.c:
+	Added usage of bad_logins array from config.c instead of strcmp series.
+	Added usage of login_is_valid() from validate.c.
+	Functions of creating new user account reviewed (especially text messages).
+	Functions rearranged to let readers better understand the logic.
+	Miscellaneous small changes and cleanups.
+
+	* telechat.h: Unused "SORRY" message removed.
+	Declaration of bad_logins array from config.c.
+	Added new VAL_* constants for validate.c.
+
+	* prototypes.h, validate.c (login_is_valid): New function.
+
+	* io.c:
+	Text about "n", "w" and "q" login commands added to pre-login help.
+
+	* TODO: Updated.
+
+	* Makefile: New file added: validate.c.
+
+2000-04-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Updated.
+
+2000-02-26  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* Makefile: Forgot to include LD_FLAGS in the command line for building
+	level_passwd.
+
+	* Makefile:
+	Forgot to include db.o as the object file to link with level_passwd.
+
+	* TODO: Updated.
+
+	* .cvsignore, level_passwd.c, Makefile:
+	New utility to change level passwords in passwords database.
+
+	* db.c, db.h, init.c, telechat.h:
+	Paths acct_fname, acct_passwords are now kept in db.c.
+
+2000-02-25  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* enter.c (set_initial_values): Initialization of color settings.
+
+	* TODO: Updated.
+
+2000-02-24  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* gdbmmanage (exit_usage):
+	The text of usage summary has been corrected.
+
+	* main.c (collapse): Memory leak has been fixed.
+
+	* io.c (accept_connection): Serious problem with initialization of SLOT
+	structure has been fixed.
+
+	* TODO: Updated.
+
+2000-02-19  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* ChangeLog: Updated.
+
+	* telechat.h: VERSION string changed.
+
+	* WhatsNew, ChangeLog: Updated for 0.9.3 release.
+
+	* TODO: Release renaming because of serious bugfix.
+
+	* main.c:
+	New command "//" from telechat source at joe.to, author: mike(?).
+	Special nickname "NONE" recognized in "/n" command.
+
+	* prototypes.h, pmail.c:
+	New command "//" from telechat source at joe.to, author: mike(?).
+
+	* enter.c: Abbreviations for commands "quit", "who" and "new".
+	Serious bug fixed: new users were not able to register themselves in
+	previos release.
+
+2000-02-18  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Plans for 0.9.4 release.
+
+2000-02-16  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Another issue to do before 0.9.3.
+
+	* TODO: New thing to do before 0.9.3.
+
+2000-02-15  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* WhatsNew: Typo fixed.
+
+	* WhatsNew, ChangeLog: Updated.
+
+	* TODO: Things to do before releasing 0.9.3.
+
+	* enter.c: Preventing of logins with such usernames as "_level5".
+
+2000-02-14  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* channels.c:
+	Strings UNVERIFIED_USER_MSG, CHANGE_UNVERIFY_MSG moved directly to
+	writestr() statements.
+	Messages about channel name changes are now colorified.
+
+	* config.h, acct.c:
+	Strings UNVERIFIED_USER_MSG, CHANGE_UNVERIFY_MSG moved directly to
+	writestr() statements.
+
+	* main.c: Layout of information dumping with /i changed.
+
+	* prototypes.h: New function colorname().
+
+	* colors.c: New function colorname().
+	Color selection string in choose_msg_color() colorified.
+
+	* active.c, admin.c, enter.c, init.c, io.c, main.c, pmail.c, signals.c, telechat.h, utils.c, acct.c:
+	Code refinements.
+
+	* init.c, main.c, admin.c:
+	Strings containing "telechat" changed to affect new name of executable.
+	Usage() function now accepts program name argument.
+	Unverified users are now able to choose color of their messages.
+
+	* .cvsignore: Ignoring "telechat-ng" executable.
+
+	* Makefile: "telechat" executable renamed to "telechat-ng".
+
+	* active.c, channels.c, main.c:
+	Extra '\n's in several types of messages removed.
+	Explicit '\0's removed at the end of strings ("text\0" -> "text").
+
+	* admin.c: "moved to level" messages colorified.
+
+	* TODO: Old problems removed.
+	Full (?) list of things to do before releasing 0.9.2 added.
+
+	* TODO: More of known problems.
+
+	* TODO: Known problems to solve before next release.
+
+	* channels.c, colors.c, emote.c, enter.c, io.c, prototypes.h, typing.c, broadcast.c:
+	Color output in messages of different kind.
+	Usual code cleanups.
+
+2000-02-13  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* telechat.h, colors.c, main.c, Makefile, prototypes.h:
+	Support for ANSI colors in ACCOUNT data, commands to change color settings.
+
+2000-02-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* admin.c: "#ifdef SOLARIS" stuff removed.
+
+	* config.h, admin.c:
+	Passwords to change user's level not kept in config.h any more. Now
+	they reside in user's password database under special usernames
+	"_level2", "_level3", "_level4", "_level5" and should be changed with
+	"gdbmmanage" utility.
+
+	* db.c (db_pwd_compare): Cleartext password now destroyed only if it is
+	proved to be correct. Just to simplify comparing the same password
+	several times.
+
+	* gdbmmanage:
+	In "adduser" command password now entered interactively, with
+	confirmation, with echo turned off.
+
+2000-02-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* WhatsNew: Updated for telechat-ng-0.9.1.
+
+	* ChangeLog, TODO: Updated.
+
+	* main.c: chdir to BASE_DIR.
+
+	* telechat.h: VERSION and COPYRIGHT strings changed.
+
+2000-02-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* enter.c: Cosmetic changes.
+
+	* io.c (insert):
+	'\xFF' (IAC) character handing code has been finished, now
+	the code is supposed to be 8-bit clean. Also one bug has been fixed,
+	it could crash the server in some circumstances.
+
+2000-02-06  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* channels.c, enter.c, admin.c: Minor code formatting.
+
+	* prototypes.h, telechat.h, typing.c, active.c, admin.c, config.c, config.h, enter.c, init.c, io.c, main.c, acct.c:
+	FAQ reading and mailing code removed. It has to be rewritten anyway.
+	More compile-time configuration options moved to config.c.
+
+	* users.c, acct.c, active.c, admin.c, config.c, db.c, db.h, enter.c, main.c, Makefile, quit.c, telechat.h:
+	Bug fixed: server crashed during next login after the user on level 5
+	has removed himself from the account database via /=,a,d.
+	New file config.c, for now it keeps only two variables to be used
+	instead of VERIFY and NODELETE compile-time flags.
+	Unused chunks of code removed: AUTOVERIFY, MODERATE stuff.
+	MODE in telechat.h moved to DB_MODE in db.h.
+	Minor code cleanups.
+
+	* main.c: Some debugging code added.
+
+	* queue.c, recent.c, signals.c, telechat.h, typing.c, admin.c, config.h, init.c, io.c, logging.c, main.c:
+	All logging functionality now resides in logging.c.
+	Logging for debugging information implemented.
+	Function "write_logs" now accepts only one argument.
+	fullprotos.h renamed to prototypes.h.
+	Code audit (mostly in queue.c, typing.c), minor corrections.
+	Function "initfiles" renamed to "open_logs".
+	Unused "qoverflow" field removed from QUEUE structure.
+
+	* prototypes.h: fullprotos.h renamed to prototypes.h.
+
+	* Makefile: logging.c added, fullprotos.h renamed to prototypes.h.
+
+2000-02-01  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Actual problems for this moment.
+
+	* telechat.h: Cosmetic changes.
+
+	* io.c, main.c, recent.c: cmds[] array handling improved.
+	Bug with calculation of screen width for help output fixed.
+	Correct handling of transmitting '\xFF' character (double IAC)
+	partially done (for input only).
+	Time is not assumed to be "pacific" any more.
+	Message appearing before login prompt now contain hints about
+	"who" and "quit" commands.
+	Code audit, miscellaneous insignificant cleanups and fixes.
+
+	* utils.c (xatoi): Function rewritten.
+
+	* telechat.h: Not used cleanup field in SLOT structure removed.
+	VERSION and COPYRIGHT strings changed.
+
+	* config.h: More reasonable defaults for system and channels names,
+	NUMCMDS constant is not used anymore.
+
+2000-01-25  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* telechat.h, main.c:
+	Locale support. Now we can chat in local language.
+
+2000-01-22  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* config.h: Make the program start on port 7227 by default.
+
+2000-01-20  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* gdbmmanage:
+	Now "gdbmmanage /path/pwd.db view" dumps password database in format
+	sweetable to authenticate users with Apache and mod_auth.
+
+	* .cvsignore: send_sighup, kill_idlers executables added.
+
+2000-01-16  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* WhatsNew: Initial revision.
+
+	* ChangeLog: Ok, I begin maintain the ChangeLog.
+
+	* admin.c, fullprotos.h, init.c, main.c, signals.c:
+	Signal processing rewritten, some unused code removed, some function
+	prototypes changed. Now signals must be catched correctly on both
+	Linux and FreeBSD. It seems that porting to Linux phase is finished:
+	now it compiles and works similar on both Linux and FreeBSD.
+
+	* TODO: Updated.
+
+	* Makefile:
+	-s option was forgotten to be removed from the linker flags.
+
+	* Makefile: ``makefile'' is now called ``Makefile''.
+
+	* config.h:
+	Makefile significally changed, defines such as -DVERIFY are now in
+	config.h.
+
+2000-01-15  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* emote.c: Broadcast emote function is now working.
+
+	* main.c: Broadcast emote is now 'D'.
+
+	* TODO: Updated.
+
+	* main.c, config.h, emote.c, fullprotos.h:
+	Initial emote functionality added.
+
+	* beeps.c, channels.c: Light deuglification of the code.
+
+	* TODO: Updated.
+
+	* acct.c (delete_unverified, purge_old):
+	Bug with password DB records deleting
+	has been fixed.
+
+	* enter.c (enter): Unused variable declaration removed.
+
+	* gdbmmanage: Initial code; has been tested and seems to work.
+
+	* .cvsignore: ``gdbmmanage-old'' is new ignored file.
+
+	* .cvsignore:
+	``gdbmmanage'' excluded; this name will belong to the new perl script.
+
+2000-01-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* acct.c (list_users):
+	Rewritten to work via new DB interface. Corrupted
+	account records reporting added.
+
+	* TODO: Current problems description saved.
+
+	* db.c, db.h:
+	New functions providing sequential access to records in account DB.
+
+2000-01-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: Usual edit session.
+
+	* fullprotos.h, users.c:
+	Use of new interface to accounts DB instead of direct work with gdbm.
+
+	* acct.c (list_users): Code clean-up.
+
+	* db.c, db.h: Initial set of functions providing access to accounts DB.
+
+	* .cvsignore: Now we ignore linked.c in the CVS.
+
+	* admin.c, db.c, db.h, enter.c, fullprotos.h, main.c, telechat.h, users.c, TODO, acct.c:
+	New function names and return values for passwords DB interface. Error
+	checking improved.
+
+	* users.c:
+	Prevention of potential structure size overflow, code layout changes.
+
+	* acct.c (email_is_bogus):
+	New function; some code from purge_old() moved here.
+
+	* TODO: *** empty log message ***
+
+2000-01-08  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* io.c (accept_connection):
+	host blocking now resides in separate function;
+	compiler warning eliminated, ``#ifdef SUN4'' section removed.
+
+	* TODO: More known problems.
+
+	* init.c, main.c: Error checking after fopen(), minor code cleanups.
+
+	* telechat.h: Clean compilation under FreeBSD.
+
+2000-01-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* pmail.c, queue.c, quit.c, recent.c, signals.c, telechat.h, typing.c, users.c, utils.c, acct.c, active.c, admin.c, beeps.c, broadcast.c, channels.c, enter.c, init.c, io.c, main.c:
+	ANSI prototypes only, no more K&R declarations.
+
+2000-01-06  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* active.c, enter.c, init.c, main.c, telechat.h, acct.c:
+	Unusable ``#ifdef EMAIL_DB'' sections removed.
+
+2000-01-05  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* TODO: More known problems.
+
+	* acct.c, enter.c, users.c: NDBM compatibility removed completely.
+
+	* enter.c:
+	Now the program uses only pwd_db.c for password database handling.
+	Rewritten functions: create_new_acct_record(), get_password(), login().
+
+	* acct.c, enter.c, users.c:
+	Using new database interface instead of direct work with database files.
+
+	* fullprotos.h (delete_pw_db):
+	New function for deleting records from password database.
+
+	* .cvsignore: *** empty log message ***
+
+	* TODO: Some known problems.
+
+2000-01-04  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* utils.c (closestd): unworking close() calls commented out.
+
+	* main.c (main): chdir() to "/".
+
+2000-01-03  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* admin.c (kickoff2): Now user cannot kick off himself crashing server.
+
+	* admin.c (reset_user_password):
+	Using pwd_db.c functions to handle passwords.
+
+	* fullprotos.h, main.c: Complete set of password handling functions.
+
+	* beeps.c, enter.c, pmail.c, queue.c, telechat.h:
+	Minor cleanups of the source code
+
+	* main.c (mainloop):
+	Workaround for Linux-specific behavior of select().
+
+1999-12-28  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* init.c:
+	Call to setsockopt() with option SO_SNDTIMEO is illegal on my system,
+	I think it's safe to remove this call.
+
+	* enter.c:
+	Bugfixes (there was assigments to array elements above the last
+	element, free() was called twice for the same pointer).
+
+	* active.c, admin.c, beeps.c, broadcast.c, channels.c, LICENSE, README, utils.c, acct.c, config.h, crontabfile, enter.c, fullprotos.h, init.c, io.c, kill_idlers.c, main.c, pmail.c, queue.c, quit.c, recent.c, send_sighup.c, signals.c, telechat.h, typing.c, users.c:
+	telechat-1.0 sources
+

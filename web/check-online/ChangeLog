@@ -1,0 +1,26 @@
+2000-04-21  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* check-online.cgi:
+	Removed error.gif images, assumed offline state when there is no
+	information about online users.
+
+2000-04-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* check-online.cgi:
+	Taint mode enabled, new caching functionality of Telechat.pm supported.
+
+	* example.html: Link to joe.to has been changed to point to localhost.
+
+2000-02-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* ChangeLog: Updated.
+
+2000-01-25  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* check-online.cgi: Support for themes, i.e. different image sets.
+
+2000-01-24  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* example.html, check-online.cgi:
+	No changes, files just have been moved.
+

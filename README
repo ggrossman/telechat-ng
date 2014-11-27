@@ -1,0 +1,192 @@
+TELECHAT VERSION 1.0
+
+------------
+DESCRIPTION:
+------------
+ 
+Telechat is a multi-user cb-style chat server for Unix platforms.  It has been 
+tested on BSD/OS (BSDI) 1.1 and 2.01.  Users telnet to a particular port on 
+the host machine, go through a login procedure, and then participate in the 
+multi-channel chat environment.  Users can end their telechat session by 
+issuing the /q command.
+
+--------------------------------
+"NO QUESTIONS ANSWERED" SUPPORT:
+--------------------------------
+ 
+The source code is made freely available for distribution and implementation, 
+however please note that the code is UNSUPPORTED.  Only bug reports and bug 
+fixes are being accepted at this time.  The authors will NOT help you compile, 
+operate, or make feature enhancements to Telechat.  Bug reports & fixes may be 
+e-mailed to: chat-bugs@hyperreal.com
+
+-------------
+REQUIREMENTS:
+-------------
+
+* UNIX (BSDI 2.0 suggested)
+	at one point I had this working on Solaris, so with some fiddling you 
+	could get this to run on a Sun again.  I think Brian had it running on 
+	an Indy at one point, so there's another platform you can try.
+* gdbm 1.7.3 or higher database support (get it from the Gnu people).  You can
+	also use ndbm, but gdbm is preferred.
+* if using BSDI and gcc, it must be gcc2.0 or higher
+
+----------
+UNPACKING:
+----------
+
+gunzip telechat.tar.gz
+tar -xvf telechat.tar
+cd telechat
+
+--------------
+CONFIGURATION:
+--------------
+
+makefile
+--------
+CFLAGS
+	-PROTOTYPES	(required) Leave in unless you are using an ancient,
+				non-ANSI compiler
+	-GDBM		(required) Specifies which Gnu Database software you
+				are using, can be either GDBM or
+				NDBM.  GDBM is newer and preferred.
+	-VERIFY		Enables the user verification stamp procedure.  When 
+				verification is enabled, unverified users must 
+				get a special stamp from an admin before they 
+				can access the more interesting features of 
+				the system.	
+	-NEW		Allows users to create accounts by typing "new" at
+				the login prompt.
+	-SLOTS		Leave in if you want logged-in users to be identified 
+				by name as well as "slot."  
+	-CHAN_TYPING	Leave in.
+	-NOHOSTNAME	Remove if you want all users to be able to see where 
+				someone is logged in from.  If you leave this
+				in, people can't see other users's hostnames
+				if the other person has their e-mail "private."
+	-EMAIL_FAQ	When left in, automatically e-mails a FAQ to new
+				users when they create their account.  This
+				FAQ should be in a file called "email.faq"
+				placed down in the BASE_DIR directory (see
+				the config.h file).
+	-PASSWD_CH	When left in, allows users to change their password
+				at will.
+
+
+DBMANAGE	Make blank if you are using regular dbm
+
+LDFLAGS		You might have to experiment with this one.
+
+
+config.h
+--------
+
+Tweak the following macros to get started:
+
+	- SYSTEM_NAME		e.g., "vrave" "hank's chat emporium"
+	- DEF_PORT		default port to run on
+	- BASE_DIR		location of database and other supporting files,
+					must end in a /
+	- CHANNEL_01_NAME	permanent name for channel 1
+	- CHANNEL_02_NAME	permanent name for channel 2
+	- LEVEL2_PW		password to move up to level 2
+	- LEVEL3_PW		password to move up to level 3
+	- LEVEL4_PW		password to move up to level 4 
+	- LEVEL5_PW		admin password.  Very important so that you
+					can give/attain administrative powers
+
+-----------------------------------
+DATABASE CREATION AND SYSTEM SETUP:
+-----------------------------------
+
+(1) Run make install
+
+(2) If you are using gdbm, type the following:
+	gdbmmanage pwd adduser your-name your-password
+    where your-name and your-password are the chat name and chat
+    password you want to use.  This is just to seed the database so
+    that everything will start up properly.
+
+    If you are using dbm, then type:
+	dbmmanage pwd adduser your-name your-password
+
+(3) Make sure the password database you just created, pwd.db, is in the
+	directory pointed to by BASE_DIR in config.h
+
+(4) Start up telechat, and try to log in with the name and password 
+	given in step 2.
+
+(5) If that works, then try going in through "new" to create another account.
+
+(6) If that works, then log out and try coming back in through one of the
+	accounts you've created so far.
+
+(7) If that works, then you're open for business.
+    
+
+------
+NOTES:
+------
+
+Compiler Warnings
+-----------------
+
+I get the following compiler warnings in utils.c.  I've found that if I change 
+utils.c to make the warning go away, the system starts acting even weirder than 
+it already does.  I didn't write this part of the code, and it doesn't make 
+sense to me what it is trying to do.
+	utils.c: In function `closestd':
+	utils.c:98: warning: passing arg 1 of `close' makes integer 
+		from pointer without a cast
+	utils.c:99: warning: passing arg 1 of `close' makes integer 
+		from pointer without a cast
+	utils.c:100: warning: passing arg 1 of `close' makes integer 
+		from pointer without a cast
+
+I get the following compiler warnings in io.c.  I've just never bothered to 
+clean this one up.
+	io.c: In function `accept_connection':
+	io.c:769: warning: passing arg 1 of `gethostbyaddr' from 
+		incompatible pointer type
+
+Log Files
+---------
+
+Log files will appear under BASE_DIR (see config.h), and will be called
+log.nnnn, where nnnn is the port number that telechat is running on.
+
+
+--------------
+Administration
+--------------
+
+To use the administrative commands, you must have "level5" privledges.  To
+get them, 
+
+	log into telechat
+	type /|
+	at the Password: Invalid command, type /? for help. prompt type
+		whatever password you have in LEVEL5_PW in config.h
+	The privledges are kept in the accounts database (acct.pwd), so
+	once you have them they persist across logouts.
+	
+Once you have permissions, you can access the administrative commands via
+/=
+
+The commands are pretty self-explanatory.  Due to documented problems with
+the gdbm database software package, I don't suggest you run 
+"delete <a>ll unverified"
+
+The user account commands (v<e>rify, <d>elete, and so on) are under
+/= <a>ccounting, so type /= and then a to get to them.
+
+NOTE:  If you v<e>rify someone, it gets rid of their admin privledges.  So,
+make sure you either verify the admin first, or use <c>hange level to reset
+the privledge level to 5.  I should fix this....
+
+About <r>eset user password:  if someone forgets their password, use 
+/= r .  This changes their password from whatever it was to whatever their
+chat login name is.  They then can log in and use /& to change their
+password.

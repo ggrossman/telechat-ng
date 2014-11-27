@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Online users on chat server</title>
+  </head>
+
+  <body bgcolor="#E0E0F0">
+    <h1>Online users on chat server</h1>
+
+    <center>
+      <h2><hr>Join us at
+      <a href="telnet://localhost:7227">localhost:7227</a> !</h2>
+    </center>
+
+    <!-- TMPL_UNLESS NAME=CHANNELS -->
+      <p>No information about online users.
+    <!-- /TMPL_UNLESS -->
+
+    <!-- TMPL_LOOP NAME=CHANNELS -->
+      <p><b><!-- TMPL_VAR ESCAPE=HTML NAME=NAME --></b>
+        <blockquote><tt>
+        <p>
+
+        <!-- TMPL_UNLESS NAME=USERS -->
+          No active users on this channel.<br>
+        <!-- /TMPL_UNLESS -->
+
+        <!-- TMPL_LOOP NAME=USERS -->
+
+          <font color="#A00000">
+          <!-- TMPL_VAR NAME=ID -->/<!-- TMPL_VAR ESCAPE=HTML NAME=ALIAS -->
+          </font>
+
+          <!-- TMPL_IF NAME=EMAIL -->
+          [<!-- TMPL_VAR NAME=EMAIL -->]
+          <!-- /TMPL_IF -->
+
+          <!-- TMPL_IF NAME=STATUS -->
+          (<!-- TMPL_VAR ESCAPE=HTML NAME=STATUS -->)
+          <!-- /TMPL_IF -->
+
+        <br>
+        <!-- /TMPL_LOOP -->
+
+        </tt></blockquote>
+    <!-- /TMPL_LOOP -->
+
+    <hr>
+    <address><a href="mailto:operator@localhost">operator</a></address>
+  </body>
+</html>

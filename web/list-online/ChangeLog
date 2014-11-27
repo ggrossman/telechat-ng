@@ -1,0 +1,23 @@
+2000-05-10  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* list-online.cgi: Dangerous typo fixed.
+
+	* list-online.cgi, list-online.tmpl:
+	Proper escaping for reserved HTML characters.
+
+	* list-online.tmpl, list-online.cgi: Using HTML::Template CPAN module.
+	Extracting status information about online users (typing, idle time).
+
+2000-04-07  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* list-online.cgi:
+	Taint mode enabled, new caching functionality of Telechat.pm supported.
+
+2000-02-09  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* ChangeLog: Updated.
+
+2000-01-24  Const Kaplinsky  <const@ce.cctpu.edu.ru>
+
+	* list-online.cgi: No changes, files just have been moved.
+

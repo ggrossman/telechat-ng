@@ -1,0 +1,92 @@
+NOT NEAR FUTURE:
+
+- Compute legal ranges for limits relations such as MAXEMAIL, MAXMSG;
+  prevent potential buffer overflows.
+- Full internationalization.
+? Relicensing to GPL.
+
+NEAR FUTURE:
+
+- DB: new layout of DB files.
+- DB: better implementation of reading stored messages.
+
+- UI: design and implementation of new user interface.
+- UI: convert double spaces in system messages to single ones.
+
+- Legal: new name for the project.
+- Legal: copyright notes in source code modules.
+- Legal: license.
+
+- Documentation: introduction.
+- Documentation: manual page.
+- Documentation: install guide.
+- Documentation: configuration guide.
+- Documentation: administrator's guide.
+- Documentation: user's guide.
+
+- Rewrite: channels (rooms) operation and philosophy.
+- Rewrite: userinfo.c modules.
+- Rewrite: get rid of users.c, utils.c, init.c.
+
+- Completion: document username completion features.
+- Completion: implement COMPL_STRICT mode (case-sensitive, look only
+  at the beginning of line).
+- Completion: implement smart letter case handling.
+- Completion: implement expansion of slot numbers to usernames with
+  the Tab key.
+
+- Passwords: pseudo-random salt combinations.
+- Passwords: confirmation of initial password.
+- Passwords: destroying passwords after validation.
+
+- I/O subsystem: design and implementation of high level I/O
+  interface, clarify the list of message types.
+- I/O subsystem: audit I/O interface, wrapping code, screen width
+  support.
+- I/O subsystem: use only high-level I/O interface (e.g. write_channel
+  function) in high-level functions such as cmd_emote2.
+- I/O subsystem: use only nonblocking I/O operations.
+- I/O subsystem: implement interface for input queues and move
+  implementation away from main.c.
+- I/O subsystem: warning about lost output during queue overflow.
+
+- Internals: disconnection messages should be printed within
+  destroy_slot() function.
+- Internals: leaving current channel in destroy_slot().
+- Internals: get rid of MAINLIST channel.
+- Internals: named constants for writemsg() instead of numeric codes.
+- Internals: resolve issue with closing standard input/output/error.
+- Internals: use only readid() for entering usernames.
+- Internals: Check accordance between function definitions and
+  prototypes (including static functions).
+- Internals: rearrange functions between modules in a better way.
+? Internals: do not use stream I/O on standart output/error.
+
+- Configuration: external configuration file support.
+- Configuration: host blocking.
+- Configuration: configurable automatic logout of idle users.
+
+- Misc: properly remove users without record in the account database.
+- Misc: design and implement user access policy, get rid of email
+  verification flag.
+- Misc: design and implementation of squelching (ignoring)
+  functionality with support for permanent squelching.
+
+- Robots: implement "hintbot", reading the input correctly.
+- Robots: implement "fortunebot", reading the input correctly.
+
+- Telechat.pm: the module should be documented (POD format).
+- Telechat.pm: test the module to make sure it works correctly with
+  many object instances.
+- Telechat.pm: the distribution must comply with the rules for
+  creating CPAN module.
+
+- Web: implement authentication DB shared between the chat server and
+  Apache.
+- Web: implement access to chat preferences via Perl CGI scripts.
+
+Legend:
+  - things to do
+  ? things to do or not to do
+  + things done but not tested very well
+  * things done

@@ -1,0 +1,150 @@
+#!/usr/bin/perl -w
+#
+# $Id: gdbmmanage,v 1.5 2000/06/01 08:34:35 const Exp $
+# Copyright (C) 2000 Const Kaplinsky <const@ce.cctpu.edu.ru>
+#
+
+use strict;
+use GDBM_File;
+use POSIX qw(:termios_h);
+
+sub exit_usage (   );
+sub reformat   ( $ );
+sub read_pw    ( $ );
+
+my $salt = 'XX';
+my $mode = 0600;
+
+my $print_opt = 0;
+if (defined $ARGV[0] && $ARGV[0] eq '-p') {
+  $print_opt = 1;
+  shift;
+}
+
+exit_usage if @ARGV < 2 or @ARGV > 4;
+
+my $file = shift;
+my $command = shift;
+my %db;
+
+if ($command eq 'view') {
+  exit_usage if @ARGV > 1;
+
+  tie %db, 'GDBM_File', $file, GDBM_READER, $mode
+    or die "Cannot open GDBM file \"$file\"\n";
+  if (@ARGV) {
+    my $key = shift;
+    unless (exists $db{$key}) {
+      untie %db;
+      die "There is no record \"$key\" in the database\n";
+    }
+    print reformat($key), ":", reformat($db{$key}), "\n";
+  } else {
+    while (my($key, $value) = each %db) {
+      print reformat($key), ":", reformat($value), "\n";
+    }
+  }
+  untie %db;
+}
+elsif ($command eq 'add') {
+  exit_usage unless @ARGV == 2;
+
+  my $key = shift;
+  my $value = shift;
+  tie %db, 'GDBM_File', $file, GDBM_WRCREAT, $mode
+    or die "Cannot open GDBM file \"$file\"\n";
+  $db{$key} = $value;
+  untie %db;
+}
+elsif ($command eq 'adduser') {
+  exit_usage unless @ARGV == 1;
+
+  my $key = shift;
+  tie %db, 'GDBM_File', $file, GDBM_WRCREAT, $mode
+    or die "Cannot open GDBM file \"$file\"\n";
+  my $pw = read_pw ('Enter new password: ');
+  if (read_pw ('Confirm password: ') eq $pw) {
+    chomp $pw;
+    $db{$key} = crypt $pw, $salt;
+  } else {
+    untie %db;
+    die "Passwords differ. Old password unchanged.\n";
+  }
+  untie %db;
+}
+elsif ($command eq 'delete') {
+  exit_usage unless @ARGV == 1;
+
+  my $key = shift;
+  tie %db, 'GDBM_File', $file, GDBM_WRITER, $mode
+    or die "Cannot open GDBM file \"$file\"\n";
+  unless (exists $db{$key}) {
+    untie %db;
+    die "There is no record \"$key\" in the database\n";
+  }
+  delete $db{$key};
+  untie %db;
+} else {
+  exit_usage();
+}
+
+sub exit_usage ()
+{
+  print STDERR << "EOT";
+Usage: gbdmmanage <GDBMfile> add <key> <value>
+       gbdmmanage <GDBMfile> delete <key>
+       gbdmmanage [-p] <GDBMfile> view [key]
+       gbdmmanage <GDBMfile> adduser <person>
+
+<GDBMfile> must be the full name of GDBM file, e.g. /home/telechat/pwd.db
+EOT
+  exit 1;
+}
+
+sub reformat ( $ )
+{
+  my $str = shift;
+  if ($print_opt) {
+    my @arr = unpack 'C*', $str;
+    $str = '"';
+    foreach my $ch (@arr) {
+      if ($ch == ord("\n")) {
+        $str .= '\\n';
+      } elsif ($ch < 0x20 || $ch >= 0x7F) {
+        $str .= sprintf '\x%02X', $ch;
+      } elsif ($ch == ord('\\')) {
+        $str .= '\\\\';
+      } elsif ($ch == ord('"')) {
+        $str .= '\\"';
+      } else {
+        $str .= chr $ch;
+      }
+    }
+    $str .= '"';
+  }
+  return $str;
+}
+
+sub read_pw ( $ )
+{
+  my $prompt = shift;
+  print $prompt;
+
+  my $fd = fileno STDIN;
+  my $term = new POSIX::Termios;
+  $term->getattr ($fd);
+  my $flags = $term->getlflag();
+  my $noecho = $flags & ~ECHO | ECHONL;
+
+  $term->setlflag ($noecho);
+  $term->setcc (VTIME, 1);
+  $term->setattr ($fd, TCSANOW);
+
+  my $str = <STDIN>;
+
+  $term->setlflag ($flags);
+  $term->setcc (VTIME, 0);
+  $term->setattr ($fd, TCSANOW);
+
+  return $str;
+}
