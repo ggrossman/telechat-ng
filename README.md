@@ -31,4 +31,4 @@ https://github.com/skyepn/telechat-py
 For more information about Unix/CB and to see the original code, see
 the README.md at https://github.com/ggrossman/unix-cb
 
-- Gary Grossman, 11/28/14
+-Gary Grossman, 11/28/14
